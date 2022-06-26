@@ -7,6 +7,7 @@ package it.polito.tdp.imdb;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import it.polito.tdp.imdb.model.Director;
 import it.polito.tdp.imdb.model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,7 +39,7 @@ public class FXMLController {
     private ComboBox<Integer> boxAnno; // Value injected by FXMLLoader
 
     @FXML // fx:id="boxRegista"
-    private ComboBox<?> boxRegista; // Value injected by FXMLLoader
+    private ComboBox<Director> boxRegista; // Value injected by FXMLLoader
 
     @FXML // fx:id="txtAttoriCondivisi"
     private TextField txtAttoriCondivisi; // Value injected by FXMLLoader
@@ -58,6 +59,9 @@ public class FXMLController {
     	int year = boxAnno.getValue();
     	
     	this.model.creaGrafo(year);
+    	for(Director d : this.model.listaDirettoriGrafo()) {
+    		boxRegista.getItems().add(d);
+    	}
     	txtResult.appendText("Il grafo è stato creato!");
     	txtResult.appendText("\nN° vertici: " + model.numeroVertici());
     	txtResult.appendText("\nN° archi: " + model.numeroArchi());

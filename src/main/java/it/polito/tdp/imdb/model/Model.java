@@ -1,6 +1,8 @@
 package it.polito.tdp.imdb.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.jgrapht.Graph;
@@ -46,6 +48,11 @@ public class Model {
 	
 	public int numeroArchi() {
 		return this.grafo.edgeSet().size();
+	}
+	
+	public List<Director> listaDirettoriGrafo(){
+		List<Director> result = new ArrayList<>(this.grafo.vertexSet());
+		return result;
 	}
 	
 	
