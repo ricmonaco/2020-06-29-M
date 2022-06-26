@@ -1,6 +1,8 @@
 package it.polito.tdp.imdb.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +55,34 @@ public class Model {
 	public List<Director> listaDirettoriGrafo(){
 		List<Director> result = new ArrayList<>(this.grafo.vertexSet());
 		return result;
+	}
+	
+	public List<Adiacenza> listaVerticiAdiacenti(Director d){
+		List<Adiacenza> adiacenze = new ArrayList<Adiacenza>();
+		
+		for(Director di : Graphs.neighborListOf(this.grafo, d)) {
+			
+			adiacenze.add(new Adiacenza(d.id, di.id, (int) this.grafo.getEdgeWeight(this.grafo.getEdge(d, di))));
+		}
+		
+		Collections.sort(adiacenze, new Comparator<Adiacenza>() {
+			public int compare(Adiacenza arg0, Adiacenza arg1) {
+				int res = 0;
+				
+				if(arg0.getPeso()<arg1.getPeso()) {
+					res = 1;
+				}
+				else if (arg0.getPeso()>arg1.getPeso()){
+					res = -1;
+				}
+				return res;
+			}});
+				
+		return adiacenze;
+	}
+	
+	public Map<Integer, Director> idMapDirector(){
+		return this.idMapDirector;
 	}
 	
 	

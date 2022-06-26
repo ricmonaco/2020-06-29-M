@@ -5,8 +5,10 @@
 package it.polito.tdp.imdb;
 
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 
+import it.polito.tdp.imdb.model.Adiacenza;
 import it.polito.tdp.imdb.model.Director;
 import it.polito.tdp.imdb.model.Model;
 import javafx.event.ActionEvent;
@@ -69,7 +71,17 @@ public class FXMLController {
 
     @FXML
     void doRegistiAdiacenti(ActionEvent event) {
-
+    	
+    	if(boxRegista.getValue() == null) {
+    		txtResult.appendText("Seleziona un regista!");
+    		return;
+    	}
+    	
+    	txtResult.appendText("\n");
+    	
+    	for(Adiacenza a : this.model.listaVerticiAdiacenti(boxRegista.getValue())) {
+    		txtResult.appendText("\n" + this.model.idMapDirector().get(a.getDirectorId2()).toString() +" (" + a.getPeso() + ")");
+    	}
     }
 
     @FXML
